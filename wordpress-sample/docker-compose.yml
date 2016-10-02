@@ -1,0 +1,26 @@
+# 1.Webサーバの設定
+webserver:
+  # 1-1. イメージの指定
+  image: wordpress
+
+  # 1-2. ポート転送設定
+  ports:
+   - "80:80"
+
+  # 1-3. コンテナのリンク設定
+  links:
+   - "dbserver:mysql"
+
+# 2.DBサーバの設定
+dbserver:
+  # 2-1. イメージお指定
+  image: mysql
+
+  # 2-2. データ保存先の指定
+  volumes_from:
+    - dataonly
+
+  # 2-3. 環境変数の指定
+  environment:
+    MYSQL_ROOT_PASSWORD: password
+ 
