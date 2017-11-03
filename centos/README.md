@@ -1,11 +1,11 @@
 # build
 docker build -t my-centos .
 
-#run
+# run
 docker run -i -t -d my-centos /bin/bash
 
-#attach
+# attach
 docker attach ${container id}
 
-#kill
+# kill
 docker kill ${container id} 
