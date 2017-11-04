@@ -83,9 +83,10 @@ docker exec -it $NODE_NAME /bin/bash
 ＊コマンドじゃないので注意。
 * docker-machine ip solr-vm1 で作成したVMのIPアドレス調べる
 * ブラウザ起動し http://${上記で調べたip}:8983 にアクセス
-
+```
 
 # 一括削除手順(コマンド)
+```
 eval "$(docker-machine env solr-vm1)"
 docker stop $(docker ps -q) && docker rm $(docker ps -aq)
 docker network rm my_network
