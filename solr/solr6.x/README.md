@@ -87,9 +87,13 @@ docker exec -it $NODE_NAME /bin/bash
 
 # 一括削除手順(コマンド)
 ```
+## コンテナ停止と削除
 eval "$(docker-machine env solr-vm1)"
 docker stop $(docker ps -q) && docker rm $(docker ps -aq)
 docker network rm my_network
+
+## VM削除
+docker-machine rm solr-vm1
 ```
 
 # 課題事項
