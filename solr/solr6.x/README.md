@@ -29,12 +29,12 @@ Oracle VM VirtualBox Manager 5.1.30
 # クラスタ作成手順(コマンド)
 ```
 ## VM作成 ＊Windows10の場合は、-dはhyperv にする必要があるらしい。
-docker-machine create -d virtualbox solr-vm1
+VM_NAME=solr-vm1
+docker-machine create -d virtualbox $VM_NAME
 
 
 ## 作成したVMの環境変数を設定
-eval "$(docker-machine env solr-vm1)"
-
+eval "$(docker-machine env $VM_NAME)"
 ## ネットワーク作成
 NETWORK_NAME=my_network
 docker network create $NETWORK_NAME
@@ -44,56 +44,56 @@ ZK_NAME=zookeeper
 docker run --net $NETWORK_NAME --name $ZK_NAME -d -p 2181:2181 -p 2888:2888 -p 3888:3888 jplock/zookeeper
 
 ## Solrノード作成(合計４つ)
-NODE_NAME=solr1.localhost
+NODE_NAME=solr1.$VM_NAME
 HOST_PORT=8983
 docker run --net $NETWORK_NAME --name $NODE_NAME -d -p $HOST_PORT:8983 \
       solr:6.6.2 \
       bash -c 'solr start -h '$NODE_NAME' -f -z '$ZK_NAME':2181'
 
-NODE_NAME=solr2.localhost
+NODE_NAME=solr2.$VM_NAME
 HOST_PORT=8984
 docker run --net $NETWORK_NAME --name $NODE_NAME -d -p $HOST_PORT:8983 \
       solr:6.6.2 \
       bash -c 'solr start -h '$NODE_NAME' -f -z '$ZK_NAME':2181'
 
-NODE_NAME=solr3.localhost
+NODE_NAME=solr3.$VM_NAME
 HOST_PORT=8985
 docker run --net $NETWORK_NAME --name $NODE_NAME -d -p $HOST_PORT:8983 \
       solr:6.6.2 \
       bash -c 'solr start -h '$NODE_NAME' -f -z '$ZK_NAME':2181'
 
-NODE_NAME=solr4.localhost
+NODE_NAME=solr4.$VM_NAME
 HOST_PORT=8986
 docker run --net $NETWORK_NAME --name $NODE_NAME -d -p $HOST_PORT:8983 \
       solr:6.6.2 \
       bash -c 'solr start -h '$NODE_NAME' -f -z '$ZK_NAME':2181'
 
 ## コレクション作成
-NODE_NAME=solr1.localhost
+NODE_NAME=solr1.$VM_NAME
 HOST_PORT=8983
 docker exec -i -t $NODE_NAME solr create_collection \
         -c item_collection -s 2 -rf 2 -p $HOST_PORT
 
 
 ## 起動中のコンテナに入る
-NODE_NAME=solr1.localhost
+NODE_NAME=solr1.$VM_NAME
 docker exec -it $NODE_NAME /bin/bash
 
 ## 作成したVMで稼働しているSolrコンテナのGUIにアクセス
 ＊コマンドじゃないので注意。
-* docker-machine ip solr-vm1 で作成したVMのIPアドレス調べる
+* docker-machine ip $VM_NAME で作成したVMのIPアドレス調べる
 * ブラウザ起動し http://${上記で調べたip}:8983 にアクセス
 ```
 
 # 一括削除手順(コマンド)
 ```
 ## コンテナ停止と削除
-eval "$(docker-machine env solr-vm1)"
+eval "$(docker-machine env $VM_NAME)"
 docker stop $(docker ps -q) && docker rm $(docker ps -aq)
 docker network rm my_network
 
 ## VM削除
-docker-machine rm solr-vm1
+docker-machine rm $VM_NAME
 ```
 
 # 課題事項
