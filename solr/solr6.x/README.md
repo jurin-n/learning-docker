@@ -1,5 +1,5 @@
 # はじめに
-SolrクラスタをDocker使って作ってみました。
+開発用途のSolrクラスタをDocker使って作ってみました。バージョンは6.x。
 
 # 構成図
 TODO
@@ -26,8 +26,8 @@ $ virtualbox -h
 Oracle VM VirtualBox Manager 5.1.30
 ```
 
-```
 # クラスタ作成手順(コマンド)
+```
 ## VM作成 ＊Windows10の場合は、-dはhyperv にする必要があるらしい。
 docker-machine create -d virtualbox solr-vm1
 
