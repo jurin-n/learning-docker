@@ -18,7 +18,7 @@ docker start $ZK_CONTAINER_NAME
 ```
 
 ### 参考
-[Official Repository - zookeeper](https://hub.docker.com/_/zookeeper/)
+* [Official Repository - zookeeper](https://hub.docker.com/_/zookeeper/)
 
 ## SolrCloud起動
 ### イメージPULLコマンド
@@ -70,5 +70,5 @@ docker network inspect $NETWORK_NAME
 ```
 
 ### 参考
-[Example of Zookeeper and Solr cluster with Docker networking](https://github.com/docker-solr/docker-solr/blob/master/docs/docker-networking.md)
-[Taking Solr to Production](https://lucene.apache.org/solr/guide/6_6/taking-solr-to-production.html)
+* [Example of Zookeeper and Solr cluster with Docker networking](https://github.com/docker-solr/docker-solr/blob/master/docs/docker-networking.md)
+* [Taking Solr to Production](https://lucene.apache.org/solr/guide/6_6/taking-solr-to-production.html)
